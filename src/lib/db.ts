@@ -1,32 +1,35 @@
 import mysql from 'mysql2/promise';
 
-// Detect environment
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Database configuration based on environment
+// Support both naming conventions:
+// DB_HOST_PROD / DB_USER_PROD / DB_PASSWORD_PROD / DB_NAME_PROD  (our standard)
+// HOSTINGER_HOST / HOSTINGER_USER / HOSTINGER_PASSWORD / HOSTINGER_DATABASE  (Hostinger style)
 const dbConfig = {
-  host: isProduction 
-    ? (process.env.DB_HOST_PROD || 'localhost')
+  host: isProduction
+    ? (process.env.DB_HOST_PROD || process.env.HOSTINGER_HOST || 'localhost')
     : (process.env.DB_HOST_DEV || 'localhost'),
-  user: isProduction 
-    ? (process.env.DB_USER_PROD || '')
+  user: isProduction
+    ? (process.env.DB_USER_PROD || process.env.HOSTINGER_USER || '')
     : (process.env.DB_USER_DEV || 'root'),
-  password: isProduction 
-    ? (process.env.DB_PASSWORD_PROD || '')
+  password: isProduction
+    ? (process.env.DB_PASSWORD_PROD || process.env.HOSTINGER_PASSWORD || '')
     : (process.env.DB_PASSWORD_DEV || ''),
-  database: isProduction 
-    ? (process.env.DB_NAME_PROD || '')
-    : (process.env.DB_NAME_DEV || 'sohelmalek_DB'),
-  port: parseInt(isProduction 
-    ? (process.env.DB_PORT_PROD || '3306')
-    : (process.env.DB_PORT_DEV || '3306')),
+  database: isProduction
+    ? (process.env.DB_NAME_PROD || process.env.HOSTINGER_DATABASE || '')
+    : (process.env.DB_NAME_DEV || ''),
+  port: parseInt(
+    isProduction
+      ? (process.env.DB_PORT_PROD || process.env.HOSTINGER_PORT || '3306')
+      : (process.env.DB_PORT_DEV || '3306')
+  ),
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 };
 
 if (!isProduction) {
-  console.log(`[DB] Development mode — connecting to ${dbConfig.database} @ ${dbConfig.host}`);
+  console.log(`[DB] Development — ${dbConfig.database} @ ${dbConfig.host}`);
 }
 
 let pool: mysql.Pool | null = null;
