@@ -10,6 +10,7 @@ const PUBLIC_API_PATHS = [
   '/api/auth/signout',
   '/api/auth/session-check',
   '/api/auth/verify-email-token',
+  '/api/debug-env', // TEMPORARY — remove after fixing env vars
 ];
 
 // ── JWT verification using Web Crypto (Edge Runtime compatible) ───────────────
