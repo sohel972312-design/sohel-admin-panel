@@ -25,8 +25,9 @@ const dbConfig = {
   queueLimit: 0,
 };
 
-console.log(`Running in ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'} mode`);
-console.log(`Connecting to database: ${dbConfig.database} @ ${dbConfig.host}`);
+if (!isProduction) {
+  console.log(`[DB] Development mode — connecting to ${dbConfig.database} @ ${dbConfig.host}`);
+}
 
 let pool: mysql.Pool | null = null;
 

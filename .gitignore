@@ -26,15 +26,15 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-# Environment files (don't commit secrets)
+# Environment files — NEVER commit real secrets
 .env.local
 .env.development
 .env.production
+.env.production.local
 .env*.local
 
-# But commit example file
-.env.example
+# Safe to commit — contains no real secrets
+# .env.production.example  ← commit this one
 
 # vercel
 .vercel
