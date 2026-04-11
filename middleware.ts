@@ -10,7 +10,6 @@ const PUBLIC_API_PATHS = [
   '/api/auth/signout',
   '/api/auth/session-check',
   '/api/auth/verify-email-token',
-  '/api/debug-env',
 ];
 
 const SECURITY_HEADERS: Record<string, string> = {
