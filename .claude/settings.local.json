@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('@tiptap/extension-table'\\)\\)\\)\")",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('@tiptap/extension-table-row'\\)\\)\\)\")",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('@tiptap/extension-table-cell'\\)\\)\\)\")",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('@tiptap/extension-table-header'\\)\\)\\)\")",
+      "Bash(node -e ':*)",
+      "Bash(curl -s -X POST http://localhost:3000/api/blogs -H 'Content-Type: application/json' -d '{\"slug\":\"test-slug\",\"title\":\"Test Blog\",\"content\":\"<p>Hello</p>\",\"status\":\"draft\",\"tags\":[],\"images\":[]}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/blogs -H 'Content-Type: application/json' -d '{\"slug\":\"test-insert-2\",\"title\":\"Test Insert\",\"content\":\"<p>Hello World</p>\",\"status\":\"draft\",\"tags\":[],\"images\":[]}')",
+      "Bash(dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\\\(full-width-pages\\)\\\\verify-email\")",
+      "Bash(dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\change-phone\")",
+      "Bash(cmd /c \"dir \\\\\"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\change-phone\\\\\"\")",
+      "Bash(cmd /c \"dir \\\\\"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\\"\")",
+      "Bash(cmd /c dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\\")"
+    ]
+  }
+}

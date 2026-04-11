@@ -27,7 +27,14 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+# Environment files (don't commit secrets)
+.env.local
+.env.development
+.env.production
 .env*.local
+
+# But commit example file
+.env.example
 
 # vercel
 .vercel
@@ -35,3 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Uploaded images (local)
+public/blog-images/
+
+*.zip

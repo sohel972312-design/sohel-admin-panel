@@ -38,6 +38,14 @@ const navItems: NavItem[] = [
     path: "/calendar",
   },
   {
+    icon: <CalenderIcon />,
+    name: "Blog",
+    subItems: [
+      { name: "All Blogs", path: "/blogs" },
+      { name: "Categories", path: "/categories" },
+    ],
+  },
+  {
     icon: <UserCircleIcon />,
     name: "User Profile",
     path: "/profile",

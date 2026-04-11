@@ -12,6 +12,7 @@ interface ImageUploadProps {
 export default function ImageUpload({ onImageUploaded, type, currentImage, label }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(currentImage || '');
+  const [error, setError] = useState<string | null>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -19,37 +20,53 @@ export default function ImageUpload({ onImageUploaded, type, currentImage, label
 
     // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('File size should be less than 5MB');
+      setError('File size should be less than 5MB');
       return;
     }
 
     // Check file type
     if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file');
+      setError('Please upload an image file');
       return;
     }
 
     setUploading(true);
+    setError(null);
+    
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', type);
 
     try {
+      console.log('Uploading file:', file.name, 'type:', type);
+      
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
+      
+      console.log('Response status:', res.status);
+      
+      // Check if response is OK
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Response text:', text);
+        throw new Error(`Upload failed: ${res.status}`);
+      }
+      
       const data = await res.json();
+      console.log('Response data:', data);
       
       if (data.success) {
         setPreview(data.url);
         onImageUploaded(data.url);
+        setError(null);
       } else {
-        alert('Upload failed');
+        setError(data.error || 'Upload failed');
       }
     } catch (error) {
       console.error('Upload failed:', error);
-      alert('Upload failed');
+      setError(error instanceof Error ? error.message : 'Upload failed');
     } finally {
       setUploading(false);
     }
@@ -58,6 +75,7 @@ export default function ImageUpload({ onImageUploaded, type, currentImage, label
   const removeImage = () => {
     setPreview('');
     onImageUploaded('');
+    setError(null);
   };
 
   return (
@@ -88,6 +106,9 @@ export default function ImageUpload({ onImageUploaded, type, currentImage, label
           />
         </label>
       </div>
+      {error && (
+        <p className="text-red-500 text-sm">{error}</p>
+      )}
     </div>
   );
 }

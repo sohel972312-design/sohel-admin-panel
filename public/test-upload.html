@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Upload</title>
+</head>
+<body>
+    <h2>Test Image Upload</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="file" name="file" accept="image/*">
+        <select id="type">
+            <option value="banner">Banner</option>
+            <option value="inner">Inner</option>
+        </select>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('file').files[0];
+            const type = document.getElementById('type').value;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('type', type);
+            
+            const result = document.getElementById('result');
+            result.innerHTML = 'Uploading...';
+            
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const text = await res.text();
+                result.innerHTML = `<pre>Status: ${res.status}\nResponse: ${text}</pre>`;
+                
+                try {
+                    const json = JSON.parse(text);
+                    if (json.success) {
+                        result.innerHTML += `<br>✅ Success! URL: ${json.url}`;
+                    }
+                } catch(e) {
+                    result.innerHTML += `<br>❌ Not JSON: ${text.substring(0, 200)}`;
+                }
+            } catch(error) {
+                result.innerHTML = `Error: ${error.message}`;
+            }
+        };
+    </script>
+</body>
+</html>
