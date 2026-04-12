@@ -37,7 +37,7 @@ export default function VerifyOtpPage() {
       if (res.ok) {
         setState("success");
         setTimeout(() => {
-          window.location.href = data.redirect || "/";
+          window.location.replace(data.redirect || "/");
         }, 600);
       } else {
         setState("error");

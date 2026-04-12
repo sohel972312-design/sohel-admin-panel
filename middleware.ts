@@ -58,7 +58,11 @@ export function middleware(req: NextRequest) {
     if (req.cookies.get(COOKIE_NAME)?.value) {
       return NextResponse.redirect(new URL('/', req.url));
     }
-    return NextResponse.next();
+    // Disable bfcache so middleware always runs on Back navigation
+    const res = NextResponse.next();
+    res.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.headers.set('Pragma', 'no-cache');
+    return res;
   }
 
   // ── Protected routes — check cookie exists ──────────────────────────────

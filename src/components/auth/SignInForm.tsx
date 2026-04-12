@@ -4,7 +4,7 @@ import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
 import { EyeCloseIcon, EyeIcon } from "@/icons";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 function SignInFormInner() {
   const router = useRouter();
@@ -15,6 +15,14 @@ function SignInFormInner() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Client-side guard: if already authenticated (e.g. bfcache restored this page),
+  // redirect to dashboard immediately.
+  useEffect(() => {
+    fetch('/api/auth/me', { credentials: 'same-origin' })
+      .then((res) => { if (res.ok) router.replace('/'); })
+      .catch(() => { /* not authenticated — stay on signin */ });
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +44,7 @@ function SignInFormInner() {
       }
 
       if (data.redirect) {
-        router.push(data.redirect);
+        router.replace(data.redirect);
       }
     } catch {
       setError("Network error. Please try again.");
