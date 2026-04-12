@@ -3,8 +3,8 @@
   "version": "2.2.3",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:local": "NODE_ENV=development next dev",
+    "dev": "next dev -p 3001",
+    "dev:local": "NODE_ENV=development next dev -p 3001",
     "build": "node scripts/pre-build.js && next build",
     "build:prod": "NODE_ENV=production next build",
     "start": "next start",

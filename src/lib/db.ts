@@ -10,13 +10,13 @@ const dbConfig = {
     ? (process.env.DB_HOST_PROD || process.env.HOSTINGER_HOST || 'localhost')
     : (process.env.DB_HOST_DEV || 'localhost'),
   user: isProduction
-    ? (process.env.DB_USER_PROD || process.env.HOSTINGER_USER || '')
+    ? (process.env.DB_USER_PROD || process.env.HOSTINGER_USER || 'root')
     : (process.env.DB_USER_DEV || 'root'),
   password: isProduction
     ? (process.env.DB_PASSWORD_PROD || process.env.HOSTINGER_PASSWORD || '')
     : (process.env.DB_PASSWORD_DEV || ''),
   database: isProduction
-    ? (process.env.DB_NAME_PROD || process.env.HOSTINGER_DATABASE || '')
+    ? (process.env.DB_NAME_PROD || process.env.HOSTINGER_DATABASE || 'sohelnext2026')
     : (process.env.DB_NAME_DEV || ''),
   port: parseInt(
     isProduction
