@@ -43,14 +43,21 @@ export function middleware(req: NextRequest) {
 
   // /login/verify-otp — needs step1_token cookie
   if (pathname === '/login/verify-otp') {
+    // Already fully logged in → go to dashboard
+    if (req.cookies.get(COOKIE_NAME)?.value) {
+      return NextResponse.redirect(new URL('/', req.url));
+    }
     if (!req.cookies.get(STEP1_COOKIE)?.value) {
       return NextResponse.redirect(new URL('/signin', req.url));
     }
     return NextResponse.next();
   }
 
-  // Public pages
+  // Public pages — redirect to dashboard if already authenticated
   if (PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'))) {
+    if (req.cookies.get(COOKIE_NAME)?.value) {
+      return NextResponse.redirect(new URL('/', req.url));
+    }
     return NextResponse.next();
   }
 
