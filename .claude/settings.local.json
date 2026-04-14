@@ -13,7 +13,8 @@
       "Bash(dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\change-phone\")",
       "Bash(cmd /c \"dir \\\\\"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\change-phone\\\\\"\")",
       "Bash(cmd /c \"dir \\\\\"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\\"\")",
-      "Bash(cmd /c dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\\")"
+      "Bash(cmd /c dir \"f:\\\\Next JS Website\\\\sohel-admin-panel\\\\src\\\\app\\\\api\\\\auth\\\\\")",
+      "Bash(xargs grep:*)"
     ]
   }
 }

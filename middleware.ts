@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const COOKIE_NAME = 'admin_session';
 const STEP1_COOKIE = 'step1_token';
 
-const PUBLIC_PATHS = ['/signin', '/signup', '/login/verify-otp', '/verify-email'];
+const PUBLIC_PATHS = ['/login', '/signin', '/signup', '/login/verify-otp', '/verify-email'];
 const PUBLIC_API_PATHS = [
   '/api/auth/login',
   '/api/auth/verify-otp',
@@ -48,7 +48,7 @@ export function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/', req.url));
     }
     if (!req.cookies.get(STEP1_COOKIE)?.value) {
-      return NextResponse.redirect(new URL('/signin', req.url));
+      return NextResponse.redirect(new URL('/login', req.url));
     }
     return NextResponse.next();
   }
@@ -75,7 +75,7 @@ export function middleware(req: NextRequest) {
     if (pathname.startsWith('/api/')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    return NextResponse.redirect(new URL('/signin', req.url));
+    return NextResponse.redirect(new URL('/login', req.url));
   }
 
   // Cookie exists — attach security headers and proceed

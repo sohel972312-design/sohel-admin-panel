@@ -29,8 +29,8 @@ export default function AdminLayout({
       await fetch('/api/auth/signout', { method: 'POST' });
     } catch { /* ignore */ }
     const url = reason === 'idle'
-      ? '/signin?reason=idle'
-      : '/signin';
+      ? '/login?reason=idle'
+      : '/login';
     router.replace(url);
   }, [router]);
 
